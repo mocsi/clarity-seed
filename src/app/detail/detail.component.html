@@ -1,0 +1,87 @@
+<div class="clr-col-2 form-group">
+    <label>My name: </label>
+    <input required min={{minval}} max={{maxval}} placeholder="Fill me in, scotty!" type="number" name="input" #inputvar="ngModel"
+      (change)="log(inputvar)" [value]='value' ngModel />
+    <div class="alert alert-danger" *ngIf="inputvar.touched && !inputvar.valid">
+      <div *ngIf="inputvar.errors.required">Input required by errors</div>
+      <div *ngIf="inputvar.errors.pattern"> Pattern didnt match</div>
+    </div>
+    <div *ngIf="inputvar.dirty">
+    <div class="alert alert-danger" *ngIf="inputvar.touched && inputvar.value < minval">Input minvalue is {{minval}} </div>
+    <div class="alert alert-danger" *ngIf="inputvar.touched && inputvar.value > maxval">Input maxvalue is {{maxval}} </div>
+  </div>
+  </div>
+  <div class="clr-row">
+   <div class="clr-col-9"> 
+    <clr-datagrid (clrDgRefresh)="refresh($event)"
+        [clrDgLoading]="loading"
+        [clrDgRowSelection]="true"
+        [(clrDgSingleSelected)]="selected">
+      <clr-dg-column>Name
+        <a href="..." role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-right">
+          <clr-icon shape="info-circle" size="24"></clr-icon>
+          <span class="tooltip-content">Lorem</span>
+      </a>
+        <clr-dg-string-filter [clrDgStringFilter]="myFilter"></clr-dg-string-filter>
+      </clr-dg-column>
+      <clr-dg-column>Birth Date</clr-dg-column>
+      <clr-dg-column>Create Date</clr-dg-column>
+    
+      <clr-dg-row *ngFor="let person of people" [clrDgItem]="person"> 
+        <clr-dg-cell>{{person.name}}</clr-dg-cell> ]
+        <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="false">
+          Lorem ipsum...
+        </clr-dg-row-detail>
+        <clr-dg-cell>{{person.birth_year}}</clr-dg-cell>
+        <clr-dg-cell>{{person.created}}</clr-dg-cell>
+      </clr-dg-row>
+    
+      <!-- <clr-dg-footer>{{person.length}} users</clr-dg-footer> -->
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"   [clrDgTotalItems]="total" [(clrDgPage)]="currentPage">
+            <clr-dg-page-size [clrPageSizeOptions]="[2,10,20,50,100]">Users per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+            of {{pagination.totalItems}} people
+        </clr-dg-pagination>
+    </clr-dg-footer>
+    </clr-datagrid>
+   </div>
+  <div class="clr-col-3">
+    <ng-container *ngIf="selected">
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <div class="card">
+            <div class="card-header">
+              {{selected.name}}
+            </div>
+            <div class="card-block">
+              <div class="card-title">
+                Title
+              </div>
+              <div class="card-text">
+                <ul>
+                  <li>Height: {{selected.height}}</li>
+                  <li>Mass: {{selected.mass}}</li>
+                  <li>Skin color: {{selected.skin_color}}</li>
+                  <li>Eye color: {{selected.eye_color}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="clr-row">
+                <div class="clr-col-sm-12 clr-col-md-6">
+                  <clr-icon shape="car"></clr-icon>
+                  Wehicles: {{selected.vehicles.length}}
+                </div>
+                <div class="clr-col-sm-12 clr-col-md-6">
+                  <clr-icon shape="airplane"></clr-icon>
+                  Starships: {{selected.starships.length}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    </div>
+  </div>
