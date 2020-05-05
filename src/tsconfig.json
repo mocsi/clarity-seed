@@ -1,6 +1,7 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
+    "downlevelIteration": true,
         "rootDir": "../",
         "baseUrl": "",
         "declaration": false,
@@ -11,11 +12,11 @@
             "dom"
         ],
         "mapRoot": "src",
-        "module": "commonjs",
+        "module": "esnext",
         "moduleResolution": "node",
         "outDir": "dist/out-tsc",
         "sourceMap": true,
-        "target": "es5",
+        "target": "es2015",
         "typeRoots": [
             "node_modules/@types"
         ],
@@ -25,8 +26,11 @@
           "node"
         ]
     },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
 }
